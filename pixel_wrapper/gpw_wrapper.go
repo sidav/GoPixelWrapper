@@ -17,8 +17,8 @@ var (
 func Init(title string, windowW, windowH, renderW, renderH int32) {
 
 	cfg := pixelgl.WindowConfig{
-		Title:  "Pixel Rocks!",
-		Bounds: pixel.R(0, 0, 1024, 768),
+		Title:  title,
+		Bounds: pixel.R(0, 0, float64(windowW), float64(windowH)),
 		Resizable:true,
 		VSync:  true,
 	}
@@ -65,6 +65,7 @@ func SetColor(r, g, b uint8) {
 
 func DrawLine(x, y, x1, y1 float64) {
 	surface.Push(pixel.Vec{x, y}, pixel.Vec{x1, y1})
+	surface.Line(2)
 }
 
 //func WaitKey() rune {
@@ -81,6 +82,11 @@ func DrawCircle(x0, y0, radius float64) { // midpoint circle algorithm. Calculat
 func FillCircle(x0, y0, radius float64) { // midpoint circle algorithm. Calculates each point of the circle.
 	push(x0, y0)
 	surface.Circle(radius, 0)
+}
+
+func FillRect(x0, y0, x1, y1 float64) {
+	surface.Push(pixel.Vec{x0, y0}, pixel.Vec{x1, y1})
+	surface.Rectangle(0)
 }
 
 func fillTriangle(x0, y0, radius float64) {
